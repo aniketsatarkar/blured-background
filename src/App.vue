@@ -1,63 +1,72 @@
 <template>
   <div id="app">
-    <div :style="gradient" class="width: 250px; height: 350px">
-      <img :src="image" class="inline" />
-    </div>
+    <div class="rounded-div">
+      <template v-for="(image, index) of images">
+        <!-- blured background with the original image -->
+        <BluredBackground
+          :key="index"
+          style="display: inline-block; margin: 5px"
+          :image="image"
+          blur-opacity="0.5"
+          container-class="rounded-div"
+        >
+          <div style="padding: 20px">
+            <img
+              :src="image"
+              class="rounded-div"
+              style="width: 300px; height: 400px"
+            />
+          </div>
+        </BluredBackground>
+      </template>
 
-    <div class="inline" :style="gradient"></div>
-    <br />
-    <div
-      class="multi-repeating-linear"
-      style="width: 200px; height: 300px"
-    ></div>
-    <br />
-    <textarea v-model="gradient"></textarea>
+      <!-- blured background without image  -->
+      <BluredBackground
+        style="display: inline-block; margin: 5px"
+        image="https://picsum.photos/200/300?image=21"
+        blur-opacity="0.5"
+        container-class="rounded-div"
+      >
+        <div style="width: 300px; height: 400px; padding: 20px">
+          <div class="rounded-div"></div>
+        </div>
+      </BluredBackground>
+    </div>
   </div>
 </template>
 
 <script>
-var grad = require("gradient-from-image");
+import BluredBackground from "./components/BluredBackground.vue";
 
 export default {
   name: "App",
+  components: {
+    BluredBackground,
+  },
   data() {
     return {
-      gradient: null,
-      image: "https://picsum.photos/200/300?image=6",
+      images: [
+        "https://picsum.photos/200/300?image=11",
+        "https://picsum.photos/200/300?image=21",
+        "https://picsum.photos/200/300?image=22",
+        "https://picsum.photos/200/300?image=23",
+        "https://picsum.photos/200/300?image=24",
+        "https://picsum.photos/200/300?image=25",
+        "https://picsum.photos/200/300?image=26",
+        "https://picsum.photos/200/300?image=27",
+        "https://picsum.photos/200/300?image=28",
+        "https://picsum.photos/200/300?image=31",
+        "https://picsum.photos/200/300?image=41",
+        "https://picsum.photos/200/300?image=51",
+        "https://picsum.photos/200/300?image=61",
+      ],
     };
-  },
-  created() {
-    this.getGradient();
-  },
-  methods: {
-    async getGradient() {
-      const imgUrl = this.image;
-      let gradient = null;
-
-      await grad.gr(imgUrl).then((response) => {
-        gradient = response;
-      });
-
-      console.log(gradient);
-
-      let colors = gradient.relevant;
-
-      this.gradient = `background: linear-gradient(45deg, ${colors[1]}, ${colors[0]});`;
-    },
   },
 };
 </script>
 
 <style>
-.inline {
-  display: inline-block !important;
-  width: 200px !important;
-  height: 300px !important;
-}
-
-.multi-repeating-linear {
-  background: repeating-linear-gradient(190deg, #642b73, #c6426e),
-    repeating-linear-gradient(-190deg, #642b73, #c6426e),
-    repeating-linear-gradient(23deg, #642b73, #c6426e);
+.rounded-div {
+  border-radius: 5px;
 }
 </style>
