@@ -1,4 +1,4 @@
-# gradient-generator
+# gradient-generator [![Netlify Status](https://api.netlify.com/api/v1/badges/6760edfd-74e5-4f70-b080-df385f27067d/deploy-status)](https://app.netlify.com/sites/dancing-monstera-c9d86c/deploys)
 
 ## Project setup
 ```
